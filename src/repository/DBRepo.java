@@ -1,12 +1,11 @@
 package repository;
 
-import model.A;
-import model.B;
-import model.BaseEntity;
-import model.Company;
+import model.*;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+
 import java.util.List;
 
 /*
@@ -57,6 +56,43 @@ public class DBRepo {
         try (Session session = factory.openSession()) {
             // from A: case sensitive, class name
             return session.createQuery("from Company", Company.class).getResultList();
+        }
+    }
+
+    public List<SiteUser> getUsers() {
+        try(Session session = factory.openSession()) {
+            List<SiteUser> all = session.createQuery("from SiteUser", SiteUser.class).getResultList();
+            return all;
+        }
+    }
+
+    public void deleteUser(int eid) {
+        try(Session session = factory.openSession()) {
+
+            Transaction trn = session.beginTransaction();
+
+            SiteUser user = session.get(SiteUser.class, eid);
+
+            session.delete(user);
+
+            trn.commit();
+            session.close();
+        }
+    }
+
+    public void updateUser(int id, String username, String password) {
+        try(Session session = factory.openSession()) {
+            Transaction trn = session.beginTransaction();
+
+            SiteUser user = session.get(SiteUser.class, id);
+            user.setPassword(password);
+            user.setUsername(username);
+
+
+            session.update(user);
+
+            trn.commit();
+            session.close();
         }
     }
 }

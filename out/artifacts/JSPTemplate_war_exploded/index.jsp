@@ -1,6 +1,7 @@
-<%--
+<%@ page import="repository.DBRepo" %>
+<%@ page import="java.io.PrintWriter" %><%--
   Created by IntelliJ IDEA.
-  User: marian
+  SiteUser: marian
   Date: 21.06.2019
   Time: 05:01
   To change this template use File | Settings | File Templates.
@@ -9,18 +10,22 @@
 <html>
 <head>
   <title>Login</title>
+  <script src="jquery-3.4.0.min.js"></script>
 </head>
+
 <body>
-<form name="Login form" action="JSPTemplate_war_exploded/servlet/test" method="POST">
-  <div>
-    <span>Username:</span>
-    <input type="text" name="username" />
-  </div>
-  <div>
-    <span>Password:</span>
-    <input type="password" name="password" />
-  </div>
-  <input type="submit" value="Log in" />
-</form>
+    <form action="${pageContext.request.contextPath}/loginService" method="post">
+        <div>
+          <span>Username:</span>
+          <input type="text" id="username" name="username" />
+        </div>
+
+        <div>
+          <span>Password:</span>
+          <input type="password" name="password" />
+        </div>
+        <input type="submit"/>
+    </form>
+
 </body>
 </html>

@@ -24,7 +24,7 @@ class HibernateConfig {
         prop.setProperty(Environment.PASS, "postgres");
         prop.setProperty(Environment.DRIVER, "org.postgresql.Driver");
         prop.setProperty(Environment.SHOW_SQL, "true");
-        prop.setProperty(Environment.HBM2DDL_AUTO, "create-drop");
+        prop.setProperty(Environment.HBM2DDL_AUTO, "update");
 
         /*SessionFactory sessionFactory = new Configuration().addProperties(prop).buildSessionFactory();
         Session session = sessionFactory.openSession();
@@ -36,6 +36,9 @@ class HibernateConfig {
         config.addAnnotatedClass(Company.class);
         config.addAnnotatedClass(Person.class);
         config.addAnnotatedClass(Task.class);
+        config.addAnnotatedClass(SiteUser.class);
+
+
 
         ServiceRegistry reg = new StandardServiceRegistryBuilder().applySettings(config.getProperties()).build();
         SessionFactory factory = config.buildSessionFactory(reg);
